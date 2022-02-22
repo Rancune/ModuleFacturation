@@ -1,6 +1,6 @@
 package com.myfacturation.client;
 
-public class clientInfo {
+public class Client {
     public String firstName;
     public String lastName;
     public String adress;
