@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 public class test {
 
-        public static void main(String[] args) throws DocumentException, FileNotFoundException {
+      /*  public static void main(String[] args) throws DocumentException, FileNotFoundException {
             var doc = new Document();
             PdfWriter.getInstance(doc, new FileOutputStream("ChronoUnits.pdf"));
             doc.open();
@@ -37,7 +37,7 @@ public class test {
             paragraph.add(table);
             doc.add(paragraph);
             doc.close();
-        }
+        }*/
     }
 
 
