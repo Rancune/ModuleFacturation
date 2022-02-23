@@ -7,6 +7,7 @@ public class Presta {
     public String presta;
     public int quantité;
     public int tarif;
+    public int total = quantité * tarif;
     private ArrayList<Presta> liste = new ArrayList<Presta>();
 
 
@@ -29,6 +30,7 @@ public class Presta {
     public void addToListe(Presta prestation){
         liste.add(prestation);
     }
+
 
 
 

@@ -6,9 +6,11 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfRectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.myfacturation.client.Client;
+import com.myfacturation.presta.Presta;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class Facture {
 
@@ -56,7 +58,7 @@ public class Facture {
 
     // ICI on crée le pdf de la facture. Buckle Up !  that's a wild ride.
 
-    public static void generationPdf(Client client) throws DocumentException, FileNotFoundException {
+    public static void generationPdf(Client client, ArrayList<Presta> liste) throws DocumentException, FileNotFoundException {
 
         var doc = new Document();
         //Le numéro de la facture doit être chronologique et sans rupture ... Fuck.
@@ -74,21 +76,20 @@ public class Facture {
 
         //var para = new PdfRectangle();
 
-
+        paragraph.add(String.valueOf(date));
         paragraph.add(Chunk.NEWLINE);
         paragraph.add(client.getFirstName());
         paragraph.add(Chunk.NEWLINE);
         paragraph.add(client.getLastName());
         paragraph.add(Chunk.NEWLINE);
         paragraph.add(client.getAdress());
+        paragraph.add(Chunk.NEWLINE);
 
 
 
 
         //Paragraphe d'info légales
         var informationLegales = new Paragraph("Pagraphes d'information légales a propos de la TVA toussa.");
-
-
 
 /*        Stream.of("Chrono Unit", "Duration").forEach(table::addCell);
 
