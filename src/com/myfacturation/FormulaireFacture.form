@@ -112,13 +112,15 @@
           <text value="Description du Service"/>
         </properties>
       </component>
-      <component id="87bc9" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="87bc9" class="javax.swing.JTextField" binding="quantite">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
       <component id="e2cac" class="javax.swing.JLabel" binding="Quantité">
         <constraints>
@@ -130,13 +132,15 @@
           <text value="Quantité"/>
         </properties>
       </component>
-      <component id="8f358" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="8f358" class="javax.swing.JTextField" binding="prix">
         <constraints>
           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
       <component id="97740" class="javax.swing.JLabel">
         <constraints>

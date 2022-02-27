@@ -20,10 +20,14 @@ public class FormulaireFacture {
     private JTextField adress;
     private JButton envoyer;
     private JLabel prénomLabel;
-    private JTextField textField1;
+    private JTextField quantite;
     private JLabel Quantité;
-    private JTextField textField2;
+    private JTextField prix;
     private ArrayList<Presta> listepresta = new ArrayList<Presta>();
+
+
+
+    // IS THIS MY CONTROLLER ?
 
 
     public FormulaireFacture() {
@@ -44,8 +48,8 @@ public class FormulaireFacture {
                 //récupération des infos presta
                 Presta prestation = new Presta();
                 prestation.setPresta(descriptionService.getText());
-                // prestation.setQuantité();
-                // prestation.setTarif();
+                prestation.setQuantité(Integer.parseInt(quantite.getText()));
+                prestation.setTarif(Integer.parseInt(prix.getText()));
                 // prestation.addToliste(prestation);
                 prestation.checkCreation();
 
@@ -54,11 +58,23 @@ public class FormulaireFacture {
                 Facture facture = new Facture();
                 try {
                     facture.generationPdf(client, listepresta);
+
                 } catch (DocumentException ex) {
                     ex.printStackTrace();
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
+
+
+/*
+                //Je vais créer un mail et l'envoyer
+                String path = null;
+                String envoyeur = null;
+                
+                Destinataire destinataire = new Destinataire(client.getMail(), path, envoyeur);
+                Mail email = new Mail(destinataire);
+                email.envoyerMail();
+                */
 
             }
 

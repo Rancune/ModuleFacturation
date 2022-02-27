@@ -3,7 +3,6 @@ package com.myfacturation.facture;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfDate;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfRectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.myfacturation.client.Client;
 import com.myfacturation.presta.Presta;
@@ -56,14 +55,23 @@ public class Facture {
     obligatoire, comme la garantie décennale par exemple.)*/
 
 
-    // ICI on crée le pdf de la facture. Buckle Up !  that's a wild ride.
+    //ICI on va créer le nom de la facture et le path où le pdf sera enregistré
+    private static String nomFacture ="FactureXXXXXX.pdf";
+    private static String path = "C:/Factures/";
+    private static String completePath = path+nomFacture;
 
+
+
+
+    // ICI on crée le pdf de la facture. Buckle Up !  that's a wild ride.
     public static void generationPdf(Client client, ArrayList<Presta> liste) throws DocumentException, FileNotFoundException {
 
-        var doc = new Document();
+        Document doc = new Document();
         //Le numéro de la facture doit être chronologique et sans rupture ... Fuck.
         // XXXXXX = date du jour
-        PdfWriter.getInstance(doc, new FileOutputStream("FactureXXXXXX.pdf"));
+
+
+        PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(nomFacture));
         doc.open();
 
         var bold = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
@@ -73,6 +81,8 @@ public class Facture {
         var table = new PdfPTable(1);
 
         var date = new PdfDate();
+
+        //SimpleDateFormat format = new SimpleDateFormat(Constants.DEFAULT_DATE_FORMAT);
 
         //var para = new PdfRectangle();
 
