@@ -17,29 +17,31 @@ import java.util.Properties;
 public class Mail {
 
 
+    public static String testUserMail = "brian.afpa@gmail.com";
+    public static String testUserPassword = "33Apfa33";
 
 
 
     // for example, smtp.mailgun.org
-    private static final String SMTP_SERVER = "smtp server ";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
+    private static final String SMTP_SERVER = "smtp-relay.gmail.com"; //renseigner le serv SMTP utilisé
+    private static final String USERNAME = testUserMail; // renseigner l'adresse mail du compte qui va envoyer le mail
+    private static final String PASSWORD = testUserPassword; // renseigner le mot de passe du compte mail qui va envoyer le mail
 
-    private static final String EMAIL_FROM = "From@gmail.com";
-    private static final String EMAIL_TO = "email_1@yahoo.com, email_2@gmail.com";
+    private static final String EMAIL_FROM = testUserMail;
+    private static final String EMAIL_TO = testUserMail;
     private static final String EMAIL_TO_CC = "";
 
     private static final String EMAIL_SUBJECT = "Test Send Email via SMTP (ATTACHMENT)";
-    private static final String EMAIL_TEXT = "Hello Java Mail \n ABC123";
+    private static final String EMAIL_TEXT = "Hello Java Mail \n This is a test for attachment ";
 
 
 
     //Mon Constructeur
-    public Mail(Object Destinataire){
+    //public Mail(Object Destinataire){
         //this.EMAIL_FROM = destinataire.envoyeur;
         //this.EMAIL_TO = destinataire.email;
         //this.path = destinataire.path;
-    }
+    //}
 
 
 
@@ -66,7 +68,7 @@ public class Mail {
 
             // file
             MimeBodyPart p2 = new MimeBodyPart();
-            FileDataSource fds = new FileDataSource("path/example.txt");// ici on recup le fichier joint
+            FileDataSource fds = new FileDataSource("example.txt");// ici on recup le fichier joint
             //FileDataSource fds = new FileDataSource(path);
             p2.setDataHandler(new DataHandler(fds));
             p2.setFileName(fds.getName());
@@ -81,7 +83,8 @@ public class Mail {
             SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
 
             // connect
-            t.connect(SMTP_SERVER, USERNAME, PASSWORD);
+            t.connect(SMTP_SERVER, USERNAME, PASSWORD);//telnet smtp.gmail.com 25 pour voir si on se connect au serv gmail ou si le parefeu bloque la connexion
+
 
             // send
             t.sendMessage(msg, msg.getAllRecipients());

@@ -5,10 +5,14 @@ import com.itextpdf.text.pdf.PdfDate;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.myfacturation.client.Client;
+import com.myfacturation.mail.Mail;
 import com.myfacturation.presta.Presta;
+import org.junit.jupiter.engine.Constants;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Facture {
@@ -56,7 +60,10 @@ public class Facture {
 
 
     //ICI on va créer le nom de la facture et le path où le pdf sera enregistré
-    private static String nomFacture ="FactureXXXXXX.pdf";
+
+    private static String nomFacture;
+    private static String numFacture;
+    private static String dateFacture;
     private static String path = "C:/Factures/";
     private static String completePath = path+nomFacture;
 
@@ -67,8 +74,29 @@ public class Facture {
     public static void generationPdf(Client client, ArrayList<Presta> liste) throws DocumentException, FileNotFoundException {
 
         Document doc = new Document();
+
         //Le numéro de la facture doit être chronologique et sans rupture ... Fuck.
         // XXXXXX = date du jour
+
+        //récupération du numéro de facture
+        FactureNumberPersister numero = new FactureNumberPersister("NumeroFacture.txt");
+
+        //numero.serialiseFacture();
+
+        try {
+            numFacture = String.valueOf(numero.deserialiseFacture().numero);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //récupération de la date du jour
+       // SimpleDateFormat format = new SimpleDateFormat(Constants.DEFAULT_DATE_FORMAT);
+        dateFacture = String.valueOf(java.time.LocalDate.now());
+
+        //concaténation du numéro de facture et de la date du jour pour avoir le nom du fichier pdf de la facture
+        nomFacture = dateFacture + numFacture;
+        System.out.println("Voici le nom de la facture : "+nomFacture);
+
 
 
         PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(nomFacture));
@@ -95,7 +123,18 @@ public class Facture {
         paragraph.add(client.getAdress());
         paragraph.add(Chunk.NEWLINE);
 
+/*        public static void writeJsonSimpleDemo(String filename) throws Exception {
+            JSONObject sampleObject = new JSONObject();
+            sampleObject.put("name", "Stackabuser");
+            sampleObject.put("age", 35);
 
+            JSONArray messages = new JSONArray();
+            messages.add("Hey!");
+            messages.add("What's up?!");
+
+            sampleObject.put("messages", messages);
+            Files.write(Paths.get(filename), sampleObject.toJSONString().getBytes());
+        }*/
 
 
         //Paragraphe d'info légales
@@ -115,6 +154,20 @@ public class Facture {
         doc.add(informationLegales);
         doc.close();
         System.out.println("génération du PDF effectué");
+
+        // c'est l'heure d'incrementer la facture
+        try {
+            numero.Incrementation();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //On envoie le mail
+        Mail mail = new Mail();
+       // mail.envoyerMail();
+       // System.out.println("Email envoyé correctement");
+
     }
 
 
